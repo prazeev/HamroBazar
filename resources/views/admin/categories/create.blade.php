@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Enter Description*</label>
-                            <textarea name="category[description]" id="description" class="form-control"
+                            <textarea name="category[description]" id="description" class="form-control summernote"
                                       placeholder="Enter details for category..."></textarea>
                         </div>
                         <div class="form-group">

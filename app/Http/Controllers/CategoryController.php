@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = Category::paginate(10);
+        $data['categories'] = Category::paginate(15);
         return view('admin.categories.index')->with($data);
     }
 
@@ -72,7 +72,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['category'] = Category::find($id);
+        return view('admin.categories.view')->with($data);
     }
 
     /**
@@ -83,7 +84,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['category'] = Category::find($id);
+        return view('admin.categories.edit')->with($data);
     }
 
     /**
@@ -95,7 +97,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->category;
+        $category = Category::find($id);
+        foreach ($data as $key => $value) {
+            $category->$key = $value;
+        }
+        $category->save();
+
+        flash("Category updated.")->success();
+        return redirect()->action("CategoryController@index");
     }
 
     /**

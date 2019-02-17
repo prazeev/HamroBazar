@@ -11,14 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([], function () {
+   Route::get('/', 'SiteController@index')->name('site');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
-    Route::resource('category', 'CategoryController');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Auth::routes();
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::group(['middleware' => 'auth'], function() {
+        Route::resource('category', 'CategoryController');
+    });
 });
